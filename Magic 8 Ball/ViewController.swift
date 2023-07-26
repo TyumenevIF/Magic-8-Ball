@@ -6,16 +6,40 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var imageView: UIImageView!
+    
+    // MARK: - Private Properties
+    private let mainView = MainView()
     
     let ballArray = [#imageLiteral(resourceName: "ball3"), #imageLiteral(resourceName: "ball2.png"), #imageLiteral(resourceName: "ball3.png"), #imageLiteral(resourceName: "ball4.png"), #imageLiteral(resourceName: "ball5.png")]
-
-
-    @IBAction func askButtonPressed(_ sender: UIButton) {
-        imageView.image = ballArray.randomElement()
+    
+    // MARK: - Override Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mainView.delegate = self
+        setViews()
+        setupConstraints()
+    }
+    
+    // MARK: - Private Methods
+    private func setViews() {
+        view.addSubview(mainView)
+    }
+    
+    private func setupConstraints() {
+        mainView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
     }
 }
 
+// MARK: - MainViewDelegate
+extension ViewController: MainViewDelegate {
+    
+    func mainView(_ view: MainView, askButtonPressed button: UIButton) {
+        mainView.imageView.image = ballArray.randomElement()
+    }
+}
