@@ -41,7 +41,7 @@ class MainView: UIView {
         return imageView
     }()
     
-    private let askButton: UIButton = {
+    lazy var askButton: UIButton = {
         let button = UIButton()
         button.setTitle("Ask", for: .normal)
         button.titleLabel?.font = UIFont(name: "Helvetica", size: 50)
@@ -54,8 +54,8 @@ class MainView: UIView {
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addViews()
-        addConstraints()
+        setSubviews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -63,14 +63,14 @@ class MainView: UIView {
     }
     
     // MARK: - Private Methods
-    private func addViews() {
+    private func setSubviews() {
         addSubview(backgroundImageView)
         addSubview(label)
         addSubview(imageView)
         addSubview(askButton)
     }
     
-    private func addConstraints() {
+    private func setupConstraints() {
         backgroundImageView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
